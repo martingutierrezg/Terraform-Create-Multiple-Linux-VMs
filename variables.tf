@@ -27,3 +27,11 @@ variable "node_count" {
   # type = number
   default = 2
 }
+
+variable "admin_username" {
+  default = "none"
+}
+
+variable "admin_password" {
+  default = "none"
+}

@@ -128,13 +128,13 @@ resource "azurerm_virtual_machine" "example_linux_vm" {
   }
   os_profile {
     computer_name  = "linuxhost"
-    admin_username = "<ADMIN_USERNAME>"
-    admin_password = "<ADMIN_PASSWORD>"
+    admin_username = var.admin_username
+    admin_password = var.admin_password
   }
   os_profile_linux_config {
     disable_password_authentication = false
   }
   tags = {
-    environment = "Test"
+    environment = var.Environment
   }
 }

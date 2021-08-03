@@ -8,6 +8,9 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - group: variable-group-azure-keyvault
+
 steps:
 - script: echo Test pipeline
   displayName: 'Run a one-line script'
@@ -33,12 +36,16 @@ steps:
         command: plan
         environmentServiceName: 'DevOpsII'
         publishPlanResults: 'test_plan'
+        # Pass command line arguments to terraform
+        commandOptions: '-var admin_username=$(admin-username) -var admin_password=$(admin-password)' # Variables as they are set in the pipelines library
 
 - task: TerraformCLI
     displayName: 'terraform apply'
     inputs:
         command: apply
         environmentServiceName: 'DevOpsII'
+        # Pass command line arguments to terraform
+        commandOptions: '-var admin_username=$(admin-username) -var admin_password=$(admin-password)'
         # indicate az login should be run as part of this command
         runAzLogin: true
 
@@ -53,4 +60,6 @@ steps:
     echo See https://aka.ms/yaml
     printf End of pipeline
     printf "%s\n" "$(date)"
+    echo $(admin-username)
+    echo $(admin-password)
   displayName: 'Run a multi-line script'
