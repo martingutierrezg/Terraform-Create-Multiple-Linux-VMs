@@ -2,6 +2,13 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 
+# TODO: set a job name - see: https://github.com/thomast1906/thomasthorntoncloud-examples/blob/master/Azure-Festive-Calendar/pipelines/Run-Terraform.yaml
+# TODO: destroy resources first
+# TODO: add git trigger
+# TODO: echo terraform outputs
+# TODO: make the pool a variable set at execution time(?)
+# TODO: Add tests - maybe an ssh connection.
+
 trigger:
 - master
 
@@ -20,10 +27,6 @@ steps:
   inputs:
     terraformVersion: 'latest'
 
-- task: TerraformCLI@0
-  inputs:
-    command: 'version'
-    allowTelemetryCollection: true
 
 - task: TerraformCLI@0
   displayName: 'terraform init'
@@ -61,6 +64,4 @@ steps:
     echo See https://aka.ms/yaml
     printf End of pipeline
     printf "%s\n" "$(date)"
-    echo $(admin-username)
-    echo $(admin-password)
   displayName: 'Run a multi-line script'
