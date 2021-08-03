@@ -40,21 +40,13 @@ steps:
       # Pass command line arguments to terraform
       commandOptions: '-var admin_username=$(admin-username) -var admin_password=$(admin-password)' # Variables as they are set in the pipelines library
 
-- task: TerraformCLI
+- task: TerraformCLI@0
   displayName: 'terraform apply'
   inputs:
       command: apply
       environmentServiceName: 'DevOpsII'
       # Pass command line arguments to terraform
       commandOptions: '-var admin_username=$(admin-username) -var admin_password=$(admin-password)'
-      # indicate az login should be run as part of this command
-      runAzLogin: true
-
-- task: TerraformCLI@0
-  displayName: 'terraform apply'
-  inputs:
-      command: apply
-      environmentServiceName: 'DevOpsII'
       # indicate az login should be run as part of this command
       runAzLogin: true
 
