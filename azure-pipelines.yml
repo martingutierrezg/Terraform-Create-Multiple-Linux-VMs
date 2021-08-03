@@ -12,11 +12,6 @@ steps:
 - script: echo Test pipeline
   displayName: 'Run a one-line script'
 
-- task: TerraformCLI
-    displayName: 'terraform init'
-    inputs:
-        command: init
-        backendType: local
 
 - task: TerraformInstaller@0
   inputs:
@@ -28,24 +23,30 @@ steps:
     allowTelemetryCollection: true
 
 - task: TerraformCLI@0
-    displayName: 'terraform plan'
-    inputs:
-        command: plan
-        environmentServiceName: 'DevOpsII'
-        publishPlanResults: 'test_plan'
-
-- task: TerraformCLI
-    displayName: 'terraform apply'
-    inputs:
-        command: apply
-        environmentServiceName: 'DevOpsII'
-        # indicate az login should be run as part of this command
-        runAzLogin: true
+  displayName: 'terraform init'
+  inputs:
+      command: 'init'
+      backendType: local
 
 - task: TerraformCLI@0
-    displayName: 'terraform output'
-    inputs:
-        command: output
+  displayName: 'terraform plan'
+  inputs:
+      command: plan
+      environmentServiceName: 'DevOpsII'
+      publishPlanResults: 'test_plan'
+
+- task: TerraformCLI@0
+  displayName: 'terraform apply'
+  inputs:
+      command: apply
+      environmentServiceName: 'DevOpsII'
+      # indicate az login should be run as part of this command
+      runAzLogin: true
+
+- task: TerraformCLI@0
+  displayName: 'terraform output'
+  inputs:
+      command: output
 
 
 - script: |
