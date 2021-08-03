@@ -9,19 +9,48 @@ pool:
   name: Default
 
 steps:
-- script: echo Hello, world!
+- script: echo Test pipeline
   displayName: 'Run a one-line script'
+
+- task: TerraformCLI
+    displayName: 'terraform init'
+    inputs:
+        command: init
+        backendType: local
 
 - task: TerraformInstaller@0
   inputs:
     terraformVersion: 'latest'
+
 - task: TerraformCLI@0
   inputs:
     command: 'version'
     allowTelemetryCollection: true
 
+- task: TerraformCLI@0
+    displayName: 'terraform plan'
+    inputs:
+        command: plan
+        environmentServiceName: 'DevOpsII'
+        publishPlanResults: 'test_plan'
+
+- task: TerraformCLI
+    displayName: 'terraform apply'
+    inputs:
+        command: apply
+        environmentServiceName: 'DevOpsII'
+        # indicate az login should be run as part of this command
+        runAzLogin: true
+
+- task: TerraformCLI@0
+    displayName: 'terraform output'
+    inputs:
+        command: output
+
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
+    printf End of pipeline
+    printf "%s\n" "$(date)"
   displayName: 'Run a multi-line script'
