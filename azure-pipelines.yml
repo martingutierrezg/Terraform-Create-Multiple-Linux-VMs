@@ -7,7 +7,8 @@
 # TODO: add git trigger
 # TODO: echo terraform outputs
 # TODO: make the pool a variable set at execution time(?)
-# TODO: Add tests - maybe an ssh connection.
+# TODO: add tests - maybe an ssh connection.
+# TODO: configure an azure storage resource to save the current terraform state
 
 trigger:
 - master
